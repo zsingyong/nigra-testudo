@@ -38,7 +38,7 @@ public class CustomDSShardingAlgorithm implements StandardShardingAlgorithm<Stri
     }
 
     @Override
-    public void init(Properties properties) {
+    public void init() {
 
     }
 }
