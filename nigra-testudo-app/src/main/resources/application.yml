@@ -39,11 +39,11 @@ spring:
         sharding:
           default-database-strategy:
             standard:
-              sharding-column: zone_val
+              sharding-column: sharding_val
               sharding-algorithm-name: ds-algorithm
           default-table-strategy:
             standard:
-              sharding-column: zone_val
+              sharding-column: sharding_val
               sharding-algorithm-name: tb-algorithm
           sharding-algorithms:
             ds-algorithm:

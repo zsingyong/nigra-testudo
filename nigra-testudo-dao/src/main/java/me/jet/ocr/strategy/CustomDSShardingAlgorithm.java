@@ -14,7 +14,7 @@ public class CustomDSShardingAlgorithm implements StandardShardingAlgorithm<Stri
     @Override
     public String doSharding(Collection<String> collection, PreciseShardingValue<String> preciseShardingValue) {
         String logicTableName = preciseShardingValue.getLogicTableName();
-        String zoneVal = preciseShardingValue.getValue();
+        String shardingVal = preciseShardingValue.getValue();
         String colName = preciseShardingValue.getColumnName();
         for (String dsName : collection) {
             System.out.println(dsName);
