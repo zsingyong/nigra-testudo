@@ -9,13 +9,13 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 import java.util.Properties;
 
-@Component
 @Slf4j
+@Component
 public class CustomTBShardingAlgorithm implements StandardShardingAlgorithm<String> {
 
     @Override
     public String doSharding(Collection<String> collection, PreciseShardingValue<String> preciseShardingValue) {
-        log.info("分期值：{}", preciseShardingValue.getValue());
+        log.info("分区值：{}", preciseShardingValue.getValue());
         Long zoneVal = Long.valueOf(preciseShardingValue.getValue());
         String columnName = preciseShardingValue.getColumnName();
         for (String tbName : collection) {
