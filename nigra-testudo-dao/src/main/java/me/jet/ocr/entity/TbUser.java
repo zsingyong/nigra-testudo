@@ -13,5 +13,5 @@ import org.springframework.context.annotation.Description;
 public class TbUser {
     @TableId
     private String userName;
-    private String zoneVal;
+    private String shardingVal;
 }
