@@ -1,5 +1,6 @@
 package me.jet.ocr.strategy;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shardingsphere.sharding.api.sharding.standard.PreciseShardingValue;
 import org.apache.shardingsphere.sharding.api.sharding.standard.RangeShardingValue;
 import org.apache.shardingsphere.sharding.api.sharding.standard.StandardShardingAlgorithm;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 import java.util.Properties;
 
+@Slf4j
 @Component
 public class CustomDSShardingAlgorithm implements StandardShardingAlgorithm<String> {
 
@@ -38,7 +40,7 @@ public class CustomDSShardingAlgorithm implements StandardShardingAlgorithm<Stri
     }
 
     @Override
-    public void init() {
+    public void init(Properties properties) {
 
     }
 }

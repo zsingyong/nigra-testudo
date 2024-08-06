@@ -41,7 +41,7 @@ public class CustomTBShardingAlgorithm implements StandardShardingAlgorithm<Stri
     }
 
     @Override
-    public void init() {
+    public void init(Properties properties) {
 
     }
 }

@@ -1,46 +1,46 @@
 server:
   port: 8080
 spring:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+    api-docs:
+      path: /v3/api-docs
+    group-configs:
+      - group: 'nigra-testudo'
+        paths-to-match: '/**'
+        packages-to-scan: me.jet.ocr
   servlet:
     multipart:
       max-file-size: 1GB
       max-request-size: 1GB
   application:
     name: nigra-testudo-app
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://127.0.0.1:5432/nigra1?useUnicode=true&characterEncoding=utf-8
-    username: postgres
-    password:
   shardingsphere:
     datasource:
       common:
+        type: com.zaxxer.hikari.HikariDataSource
         driver-class-name: org.postgresql.Driver
-      names: ds0, ds1
+      names: ds1,ds2,ds3,ds4
       ds1: #数据源1
-        type: com.alibaba.druid.pool.DruidDataSource
-        driver-class-name: org.postgresql.Driver
         jdbc-url: jdbc:postgresql://127.0.0.1:5432/nigra1?useUnicode=true&characterEncoding=utf-8
         username: postgres
         password:
       ds2: #数据源2
-        type: com.alibaba.druid.pool.DruidDataSource
-        driver-class-name: org.postgresql.Driver
         jdbc-url: jdbc:postgresql://127.0.0.1:5432/nigra2?useUnicode=true&characterEncoding=utf-8
         username: postgres
         password:
       ds3: #数据源3
-        type: com.alibaba.druid.pool.DruidDataSource
-        driver-class-name: org.postgresql.Driver
         jdbc-url: jdbc:postgresql://127.0.0.1:5432/nigra3?useUnicode=true&characterEncoding=utf-8
         username: postgres
         password:
       ds4: #数据源4
-        type: com.alibaba.druid.pool.DruidDataSource
-        driver-class-name: org.postgresql.Driver
         jdbc-url: jdbc:postgresql://127.0.0.1:5432/nigra4?useUnicode=true&characterEncoding=utf-8
         username: postgres
         password:
+    props:
+      sql-show: true
     rules:
       sharding:
         default-database-strategy:
@@ -61,14 +61,13 @@ spring:
             props:
               strategyClassName: me.jet.ocr.strategy.CustomTBShardingAlgorithm
 
-  main:
-    allow-bean-definition-overriding: true
-  mybatis:
-    type-aliases-package: me.jet.orc.entity
-    mapper-locations: classpath*:/mapper/**/*.xml
-
-
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
 mybatis-plus:
+  type-aliases-package: me.jet.orc.entity
+  mapper-locations: classpath*:/mapper/**/*.xml
   configuration:
     map-underscore-to-camel-case: true
   global-config:
