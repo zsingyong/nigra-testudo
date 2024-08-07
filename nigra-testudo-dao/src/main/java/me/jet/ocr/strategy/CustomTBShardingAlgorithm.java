@@ -18,7 +18,7 @@ public class CustomTBShardingAlgorithm implements StandardShardingAlgorithm<Stri
 
     @Override
     public String getType() {
-        return "HINT_2";
+        return "STANDARD";
     }
 
     @Override

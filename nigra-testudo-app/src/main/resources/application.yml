@@ -79,7 +79,26 @@ spring:
     props:
       sql-show: true
     rules:
+      sql-parser:
+        sql-comment-parse-enabled: true
+      sql-statement-cache:
+        maximum-size: 65535
+        initial-capacity: 2000
+      parse-tree:
+        initial-capacity: 128
+        maximum-size: 1024
       sharding:
+        tables:
+          tb_user:
+            actual-data-nodes: nigra$->{1..4}.tb_user_$->{0001..0004}
+            database-strategy:
+              standard:
+                sharding-column: sharding_val
+                sharding-algorithm-name: ds-inline
+            table-strategy:
+              standard:
+                sharding-column: sharding_val
+                sharding-algorithm-name: tb-inline
         sharding-algorithms:
           ds-inline:
             type: CLASS_BASED
@@ -123,10 +142,10 @@ pagehelper:
 logging:
   level:
     root: DEBUG
-    org.springframework.web: DEBUG
-    me.jet: DEBUG
+    org: DEBUG
+    me: DEBUG
   pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
   file:
     name: application.log
     path: ./logs
