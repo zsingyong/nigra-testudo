@@ -18,27 +18,64 @@ spring:
   application:
     name: nigra-testudo-app
   shardingsphere:
+    mode:
+      type: Standalone
+      repository:
+        type: JDBC
+    database: nigra1
     datasource:
       common:
         type: com.zaxxer.hikari.HikariDataSource
         driver-class-name: org.postgresql.Driver
-      names: ds1,ds2,ds3,ds4
-      ds1: #数据源1
-        jdbc-url: jdbc:postgresql://127.0.0.1:5432/nigra1?useUnicode=true&characterEncoding=utf-8
+      names: ds0,ds1,ds2,ds3
+      ds0:
+        driver-class-name: org.postgresql.Driver
+        jdbc-url: jdbc:postgresql://localhost:5432/nigra1
         username: postgres
         password:
-      ds2: #数据源2
-        jdbc-url: jdbc:postgresql://127.0.0.1:5432/nigra2?useUnicode=true&characterEncoding=utf-8
+        type: com.zaxxer.hikari.HikariDataSource
+        hikari:
+          minimum-idle: 5
+          maximum-pool-size: 10
+          idle-timeout: 30000
+          connection-timeout: 30000
+          max-lifetime: 600000
+      ds1:
+        driver-class-name: org.postgresql.Driver
+        jdbc-url: jdbc:postgresql://localhost:5432/nigra2
         username: postgres
         password:
-      ds3: #数据源3
-        jdbc-url: jdbc:postgresql://127.0.0.1:5432/nigra3?useUnicode=true&characterEncoding=utf-8
+        type: com.zaxxer.hikari.HikariDataSource
+        hikari:
+          minimum-idle: 5
+          maximum-pool-size: 10
+          idle-timeout: 30000
+          connection-timeout: 30000
+          max-lifetime: 600000
+      ds2:
+        driver-class-name: org.postgresql.Driver
+        jdbc-url: jdbc:postgresql://localhost:5432/nigra3
         username: postgres
         password:
-      ds4: #数据源4
-        jdbc-url: jdbc:postgresql://127.0.0.1:5432/nigra4?useUnicode=true&characterEncoding=utf-8
+        type: com.zaxxer.hikari.HikariDataSource
+        hikari:
+          minimum-idle: 5
+          maximum-pool-size: 10
+          idle-timeout: 30000
+          connection-timeout: 30000
+          max-lifetime: 600000
+      ds3:
+        driver-class-name: org.postgresql.Driver
+        jdbc-url: jdbc:postgresql://localhost:5432/nigra4
         username: postgres
         password:
+        type: com.zaxxer.hikari.HikariDataSource
+        hikari:
+          minimum-idle: 5
+          maximum-pool-size: 10
+          idle-timeout: 30000
+          connection-timeout: 30000
+          max-lifetime: 600000
     props:
       sql-show: true
     rules:
@@ -46,21 +83,22 @@ spring:
         default-database-strategy:
           standard:
             sharding-column: sharding_val
-            sharding-algorithm-name: ds-algorithm
+            sharding-algorithm-name: ds-inline
         default-table-strategy:
           standard:
             sharding-column: sharding_val
-            sharding-algorithm-name: tb-algorithm
+            sharding-algorithm-name: tb-inline
         sharding-algorithms:
-          ds-algorithm:
+          ds-inline:
             type: CLASS_BASED
             props:
-              strategyClassName: me.jet.ocr.strategy.CustomDSShardingAlgorithm
-          tb-algorithm:
+              strategy: STANDARD
+              algorithmClassName: me.jet.ocr.strategy.CustomDSShardingAlgorithm
+          tb-inline:
             type: CLASS_BASED
             props:
-              strategyClassName: me.jet.ocr.strategy.CustomTBShardingAlgorithm
-
+              strategy: STANDARD
+              algorithmClassName: me.jet.ocr.strategy.CustomTBShardingAlgorithm
 knife4j:
   enable: true
   setting:
@@ -71,7 +109,7 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
   global-config:
-    logic-delete-field: deleted
+    logic-delete-field: record_st_cd
     logic-delete-value: 1
     logic-not-delete-value: 0
     db-config:
@@ -81,5 +119,50 @@ pagehelper:
   helper-dialect: postgresql
   reasonable: true
   support-methods-arguments: true
+#
+#datasource:
+#  names: ds1,ds2,ds3,ds4
+#  ds1: #数据源1
+#    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+#    driverClassName: org.postgresql.Driver
+#    jdbcUrl: jdbc:postgresql://127.0.0.1:5432/nigra1?useUnicode=true&characterEncoding=utf-8
+#    username: postgres
+#    password:
+#  ds2: #数据源2
+#    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+#    driverClassName: org.postgresql.Driver
+#    jdbcUrl: jdbc:postgresql://127.0.0.1:5432/nigra2?useUnicode=true&characterEncoding=utf-8
+#    username: postgres
+#    password:
+#  ds3: #数据源3
+#    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+#    driverClassName: org.postgresql.Driver
+#    jdbcUrl: jdbc:postgresql://127.0.0.1:5432/nigra3?useUnicode=true&characterEncoding=utf-8
+#    username: postgres
+#    password:
+#  ds4: #数据源4
+#    dataSourceClassName: com.zaxxer.hikari.HikariDataSource
+#    driverClassName: org.postgresql.Driver
+#    jdbcUrl: jdbc:postgresql://127.0.0.1:5432/nigra4?useUnicode=true&characterEncoding=utf-8
+#    username: postgres
+#    password:
+#  props:
+#    sql-show: true
+#  rules:
+#    defaultShardingColumn: sharding_val
+#    defaultDatabaseStrategy:
+#      standard:
+#        shardingColumn: sharding_val
+#        shardingAlgorithmName: ds-inline
+#    defaultTableStrategy:
+#    shardingAlgorithms:
+#      ds-inline:
+#        type: CLASS_BASED
+#        props:
+#          strategy: me.jet.ocr.strategy.CustomDSShardingAlgorithm
+#      tb-inline:
+#        type: CLASS_BASED
+#        props:
+#          strategy: me.jet.ocr.strategy.CustomTBShardingAlgorithm
 
 

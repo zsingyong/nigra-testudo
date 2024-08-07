@@ -15,6 +15,16 @@ import java.util.Properties;
 public class CustomTBShardingAlgorithm implements StandardShardingAlgorithm<String> {
 
     @Override
+    public String getType() {
+        return StandardShardingAlgorithm.super.getType();
+    }
+
+    @Override
+    public Collection<String> doSharding(Collection<String> collection, RangeShardingValue<String> rangeShardingValue) {
+        return collection;
+    }
+
+    @Override
     public String doSharding(Collection<String> collection, PreciseShardingValue<String> preciseShardingValue) {
         log.info("分区值：{}", preciseShardingValue.getValue());
         Long shardingVal = Long.valueOf(preciseShardingValue.getValue());
@@ -26,18 +36,8 @@ public class CustomTBShardingAlgorithm implements StandardShardingAlgorithm<Stri
     }
 
     @Override
-    public Collection<String> doSharding(Collection<String> collection, RangeShardingValue<String> rangeShardingValue) {
-        return null;
-    }
-
-    @Override
     public Properties getProps() {
-        return new Properties();
-    }
-
-    @Override
-    public String getType() {
-        return "CUSTOM";
+        return null;
     }
 
     @Override
