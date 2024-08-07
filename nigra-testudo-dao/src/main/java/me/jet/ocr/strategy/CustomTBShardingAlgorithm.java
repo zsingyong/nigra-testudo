@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.shardingsphere.sharding.api.sharding.standard.PreciseShardingValue;
 import org.apache.shardingsphere.sharding.api.sharding.standard.RangeShardingValue;
 import org.apache.shardingsphere.sharding.api.sharding.standard.StandardShardingAlgorithm;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -11,7 +12,7 @@ import java.util.Properties;
 
 
 @Slf4j
-@Component
+@ComponentScan
 public class CustomTBShardingAlgorithm implements StandardShardingAlgorithm<String> {
 
     @Override

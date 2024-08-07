@@ -5,6 +5,7 @@ import org.apache.shardingsphere.sharding.algorithm.sharding.classbased.ClassBas
 import org.apache.shardingsphere.sharding.api.sharding.standard.PreciseShardingValue;
 import org.apache.shardingsphere.sharding.api.sharding.standard.RangeShardingValue;
 import org.apache.shardingsphere.sharding.api.sharding.standard.StandardShardingAlgorithm;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -12,8 +13,13 @@ import java.util.List;
 import java.util.Properties;
 
 @Slf4j
-@Component
+@ComponentScan
 public class CustomDSShardingAlgorithm implements StandardShardingAlgorithm<String> {
+
+    @Override
+    public String getType() {
+        return StandardShardingAlgorithm.super.getType();
+    }
 
     @Override
     public Collection<String> doSharding(Collection<String> collection, RangeShardingValue<String> rangeShardingValue) {
