@@ -1,0 +1,2 @@
+me.jet.ocr.strategy.CustomDSShardingAlgorithm
+me.jet.ocr.strategy.CustomTBShardingAlgorithm

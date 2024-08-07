@@ -19,6 +19,7 @@
         <shardingsphere.version>5.2.0</shardingsphere.version>
         <knife4j.version>2.0.4</knife4j.version>
         <springfox.version>2.9.2</springfox.version>
+        <postgresql.version>42.7.3</postgresql.version>
         <mybatis.plus.version>3.4.3.1</mybatis.plus.version>
     </properties>
 
@@ -186,6 +187,12 @@
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
                 <version>4.0.1</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
