@@ -27,8 +27,8 @@ spring:
       common:
         type: com.zaxxer.hikari.HikariDataSource
         driver-class-name: org.postgresql.Driver
-      names: ds0,ds1,ds2,ds3
-      ds0:
+      names: nigra1,nigra2,nigra3,nigra4
+      nigra1:
         driver-class-name: org.postgresql.Driver
         jdbc-url: jdbc:postgresql://localhost:5432/nigra1
         username: postgres
@@ -40,7 +40,7 @@ spring:
           idle-timeout: 30000
           connection-timeout: 30000
           max-lifetime: 600000
-      ds1:
+      nigra2:
         driver-class-name: org.postgresql.Driver
         jdbc-url: jdbc:postgresql://localhost:5432/nigra2
         username: postgres
@@ -52,7 +52,7 @@ spring:
           idle-timeout: 30000
           connection-timeout: 30000
           max-lifetime: 600000
-      ds2:
+      nigra3:
         driver-class-name: org.postgresql.Driver
         jdbc-url: jdbc:postgresql://localhost:5432/nigra3
         username: postgres
@@ -64,7 +64,7 @@ spring:
           idle-timeout: 30000
           connection-timeout: 30000
           max-lifetime: 600000
-      ds3:
+      nigra4:
         driver-class-name: org.postgresql.Driver
         jdbc-url: jdbc:postgresql://localhost:5432/nigra4
         username: postgres
@@ -90,7 +90,7 @@ spring:
       sharding:
         tables:
           tb_user:
-            actual-data-nodes: nigra$->{1..4}.tb_user_$->{0001..0004}
+            actual-data-nodes: nigra${1..4}.tb_user_${0001..0004}
             database-strategy:
               standard:
                 sharding-column: sharding_val
@@ -139,10 +139,13 @@ pagehelper:
   helper-dialect: postgresql
   reasonable: true
   support-methods-arguments: true
+
+
 logging:
   level:
     root: DEBUG
-    org: DEBUG
+    org.apache.shardingsphere: DEBUG
+    org.springframework: DEBUG
     me: DEBUG
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"

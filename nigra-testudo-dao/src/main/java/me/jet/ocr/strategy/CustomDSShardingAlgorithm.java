@@ -35,10 +35,13 @@ public class CustomDSShardingAlgorithm implements StandardShardingAlgorithm<Stri
     public String doSharding(Collection<String> availableTargetNames, PreciseShardingValue<String> shardingValue) {
         String zoneVal = shardingValue.getValue();
         String colName = shardingValue.getColumnName();
+        Integer index = Integer.valueOf(zoneVal);
         for (String availableTargetName : availableTargetNames) {
-            return availableTargetName;
+            if (availableTargetName.endsWith(index + "")) {
+                return availableTargetName;
+            }
         }
-        return null;
+        throw new IllegalArgumentException("分区不支持");
     }
 
     @Override
