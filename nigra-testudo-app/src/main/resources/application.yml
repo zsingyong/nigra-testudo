@@ -88,6 +88,10 @@ spring:
         initial-capacity: 128
         maximum-size: 1024
       sharding:
+        broadcast-tables:
+          - tb_user
+        bind-tables:
+          - tb_user
         tables:
           tb_user:
             actual-data-nodes: nigra${1..4}.tb_user_${0001..0004}
