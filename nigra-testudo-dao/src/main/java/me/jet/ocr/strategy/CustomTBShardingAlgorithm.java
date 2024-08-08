@@ -33,10 +33,20 @@ public class CustomTBShardingAlgorithm implements StandardShardingAlgorithm<Stri
 
     @Override
     public String doSharding(Collection<String> availableTargetNames, PreciseShardingValue<String> shardingValue) {
-        for (String availableTargetName : availableTargetNames) {
-            return availableTargetName;
+        String zoneVal = shardingValue.getValue();
+        String colName = shardingValue.getColumnName();
+        Integer index = Integer.valueOf(zoneVal);
+        if (availableTargetNames.size() == 1) {
+            for (String availableTargetName : availableTargetNames) {
+                return availableTargetName + zoneVal;
+            }
         }
-        return null;
+        for (String availableTargetName : availableTargetNames) {
+            if (availableTargetName.endsWith(index + "")) {
+                return availableTargetName;
+            }
+        }
+        throw new IllegalArgumentException("分区不支持");
     }
 
     @Override
